@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Background -->
+  <rect width="64" height="64" rx="12" fill="#183E33"/>
+  <!-- "P" centred in gold -->
+  <text x="32" y="48" font-family="Georgia, serif" font-size="50" font-weight="700" fill="#CEB290" text-anchor="middle">P</text>
+</svg>

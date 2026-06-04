@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#183E33"/>
+      <stop offset="100%" style="stop-color:#2E4442"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#CEB290;stop-opacity:0"/>
+      <stop offset="50%" style="stop-color:#CEB290;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#CEB290;stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Subtle decorative circles -->
+  <circle cx="980" cy="120" r="280" fill="none" stroke="#CEB290" stroke-width="1" opacity="0.08"/>
+  <circle cx="980" cy="120" r="200" fill="none" stroke="#CEB290" stroke-width="1" opacity="0.06"/>
+  <circle cx="220" cy="520" r="180" fill="none" stroke="#CEB290" stroke-width="1" opacity="0.06"/>
+
+  <!-- Top accent line -->
+  <rect x="0" y="0" width="1200" height="4" fill="#CEB290" opacity="0.5"/>
+
+  <!-- PBS Monogram - "P" -->
+  <text x="90" y="310" font-family="Georgia, serif" font-size="220" font-weight="700" fill="#183E33" opacity="0.18">P</text>
+  <!-- PBS Monogram overlay gold "B" -->
+  <text x="155" y="310" font-family="Georgia, serif" font-size="220" font-weight="700" fill="#CEB290" opacity="0.12">B</text>
+  <!-- PBS Monogram "S" -->
+  <text x="230" y="310" font-family="Georgia, serif" font-size="220" font-weight="700" fill="#406346" opacity="0.14">S</text>
+
+  <!-- Main content - company name -->
+  <text x="90" y="230" font-family="Georgia, 'Times New Roman', serif" font-size="58" font-weight="700" fill="#DEC9A8" letter-spacing="2">Pursuit Business Solutions</text>
+
+  <!-- Divider line -->
+  <rect x="90" y="256" width="420" height="2" fill="#CEB290" opacity="0.4"/>
+
+  <!-- Tagline -->
+  <text x="90" y="298" font-family="Georgia, serif" font-size="22" font-style="italic" fill="#CEB290" opacity="0.85" letter-spacing="1">Your numbers, our pursuit.</text>
+
+  <!-- Services row -->
+  <text x="90" y="360" font-family="Arial, sans-serif" font-size="17" font-weight="600" fill="#DEC9A8" opacity="0.7" letter-spacing="3">ACCOUNTING  ·  PAYROLL  ·  BOOKKEEPING</text>
+
+  <!-- Location badge -->
+  <rect x="90" y="400" width="182" height="36" rx="18" fill="#CEB290" opacity="0.12" stroke="#CEB290" stroke-width="1" stroke-opacity="0.3"/>
+  <!-- pin icon -->
+  <circle cx="110" cy="418" r="5" fill="none" stroke="#CEB290" stroke-width="1.5" opacity="0.7"/>
+  <line x1="110" y1="423" x2="110" y2="428" stroke="#CEB290" stroke-width="1.5" opacity="0.7"/>
+  <text x="122" y="423" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#CEB290" letter-spacing="2" opacity="0.85">CANBERRA, ACT</text>
+
+  <!-- Website -->
+  <text x="90" y="530" font-family="Arial, sans-serif" font-size="16" fill="#CEB290" opacity="0.5" letter-spacing="1">pursuitbusiness.com.au</text>
+
+  <!-- Bottom accent line -->
+  <rect x="0" y="626" width="1200" height="4" fill="#CEB290" opacity="0.3"/>
+</svg>
