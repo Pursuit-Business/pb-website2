@@ -4,11 +4,20 @@ header('Access-Control-Allow-Origin: https://www.pursuitbusiness.com.au');
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type');
 
+require __DIR__ . '/PHPMailer/Exception.php';
+require __DIR__ . '/PHPMailer/PHPMailer.php';
+require __DIR__ . '/PHPMailer/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     echo json_encode(['ok' => false, 'error' => 'Method not allowed']);
     exit;
 }
+
+$cfg = require __DIR__ . '/config.php';
 
 $raw = file_get_contents('php://input');
 $data = json_decode($raw, true);
@@ -26,8 +35,37 @@ function clean($v) {
     return htmlspecialchars(strip_tags(trim((string)$v)), ENT_QUOTES, 'UTF-8');
 }
 
-$to      = 'terence.chia@gmail.com';
-$from    = 'noreply@pursuitbusiness.com.au';
+/**
+ * Send an email via authenticated SMTP. Returns true on success.
+ * $replyTo: optional [email, name] to set a Reply-To header.
+ */
+function sendMail(array $cfg, string $subject, string $body, ?array $replyTo = null): bool {
+    $mail = new PHPMailer(true);
+    try {
+        $mail->isSMTP();
+        $mail->Host       = $cfg['smtp_host'];
+        $mail->SMTPAuth   = true;
+        $mail->Username   = $cfg['smtp_user'];
+        $mail->Password   = $cfg['smtp_pass'];
+        $mail->SMTPSecure = $cfg['smtp_secure']; // 'ssl' (465) or 'tls' (587)
+        $mail->Port       = (int)$cfg['smtp_port'];
+
+        $mail->setFrom($cfg['from_email'], $cfg['from_name']);
+        $mail->addAddress($cfg['to_email']);
+        if ($replyTo && filter_var($replyTo[0], FILTER_VALIDATE_EMAIL)) {
+            $mail->addReplyTo($replyTo[0], $replyTo[1] ?? '');
+        }
+
+        $mail->Subject = $subject;
+        $mail->Body    = $body;
+
+        $mail->send();
+        return true;
+    } catch (Exception $e) {
+        error_log('submit.php mail error: ' . $mail->ErrorInfo);
+        return false;
+    }
+}
 
 // ── Contact form ──────────────────────────────────────────────────────────────
 if ($type === 'contact') {
@@ -54,11 +92,7 @@ if ($type === 'contact') {
           . "Service:  $service\n\n"
           . "Message:\n$message\n";
 
-    $headers = "From: PBS Website <$from>\r\n"
-             . "Reply-To: $email\r\n"
-             . "X-Mailer: PHP/" . phpversion();
-
-    $sent = mail($to, $subject, $body, $headers);
+    $sent = sendMail($cfg, $subject, $body, [$email, "$fname $lname"]);
 
     echo json_encode(['ok' => $sent]);
     exit;
@@ -78,10 +112,7 @@ if ($type === 'newsletter') {
     $subject = "New Newsletter Signup: $name";
     $body = "New newsletter subscriber:\n\nName:  $name\nEmail: $email\n";
 
-    $headers = "From: PBS Website <$from>\r\n"
-             . "X-Mailer: PHP/" . phpversion();
-
-    $sent = mail($to, $subject, $body, $headers);
+    $sent = sendMail($cfg, $subject, $body, [$email, $name]);
 
     echo json_encode(['ok' => $sent]);
     exit;
