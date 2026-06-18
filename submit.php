@@ -26,7 +26,7 @@ function clean($v) {
     return htmlspecialchars(strip_tags(trim((string)$v)), ENT_QUOTES, 'UTF-8');
 }
 
-$to      = 'hello@pursuitbusiness.com.au';
+$to      = 'terence.chia@gmail.com';
 $from    = 'noreply@pursuitbusiness.com.au';
 
 // ── Contact form ──────────────────────────────────────────────────────────────
