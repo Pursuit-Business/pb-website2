@@ -28,7 +28,6 @@ function clean($v) {
 
 $to      = 'hello@pursuitbusiness.com.au';
 $from    = 'noreply@pursuitbusiness.com.au';
-$leads   = __DIR__ . '/leads.csv';
 
 // ── Contact form ──────────────────────────────────────────────────────────────
 if ($type === 'contact') {
@@ -61,26 +60,6 @@ if ($type === 'contact') {
 
     $sent = mail($to, $subject, $body, $headers);
 
-    // Append to CSV log
-    $csvRow = [
-        date('Y-m-d H:i:s'),
-        'contact',
-        $fname . ' ' . $lname,
-        $email,
-        $phone,
-        $business,
-        $service,
-        str_replace(["\r", "\n"], ' ', $message),
-    ];
-    $fp = fopen($leads, 'a');
-    if ($fp) {
-        if (filesize($leads) === 0) {
-            fputcsv($fp, ['Timestamp', 'Type', 'Name', 'Email', 'Phone', 'Business', 'Service', 'Message']);
-        }
-        fputcsv($fp, $csvRow);
-        fclose($fp);
-    }
-
     echo json_encode(['ok' => $sent]);
     exit;
 }
@@ -103,16 +82,6 @@ if ($type === 'newsletter') {
              . "X-Mailer: PHP/" . phpversion();
 
     $sent = mail($to, $subject, $body, $headers);
-
-    $csvRow = [date('Y-m-d H:i:s'), 'newsletter', $name, $email, '', '', '', ''];
-    $fp = fopen($leads, 'a');
-    if ($fp) {
-        if (filesize($leads) === 0) {
-            fputcsv($fp, ['Timestamp', 'Type', 'Name', 'Email', 'Phone', 'Business', 'Service', 'Message']);
-        }
-        fputcsv($fp, $csvRow);
-        fclose($fp);
-    }
 
     echo json_encode(['ok' => $sent]);
     exit;
